@@ -31,8 +31,6 @@ jobs:
 
       - name: Commit and push dist folder
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
           git add dist/
           git commit -m "build: update dist folder [skip ci]" || echo "No changes to commit"
-          git push origin main
+          gh repo sync

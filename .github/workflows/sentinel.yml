@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Sentinel AI Review
-        uses: rutvij26/sentinel@v1.0.0
+        uses: rutvij26/sentinel@main
         with:
           # Choose one AI provider:
 
