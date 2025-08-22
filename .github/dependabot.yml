@@ -14,9 +14,9 @@ updates:
     # Limit to security updates for production dependencies
     open-pull-requests-limit: 10
     reviewers:
-      - "rut26"
+      - "rutvij26"
     assignees:
-      - "rut26"
+      - "rutvij26"
     labels:
       - "dependencies"
       - "automated"
@@ -61,9 +61,9 @@ updates:
       timezone: "UTC"
     open-pull-requests-limit: 5
     reviewers:
-      - "rut26"
+      - "rutvij26"
     assignees:
-      - "rut26"
+      - "rutvij26"
     labels:
       - "dependencies"
       - "github-actions"
@@ -84,9 +84,9 @@ updates:
   #     timezone: "UTC"
   #   open-pull-requests-limit: 5
   #   reviewers:
-  #     - "rut26"
+  #     - "rutvij26"
   #   assignees:
-  #     - "rut26"
+  #     - "rutvij26"
   #   labels:
   #     - "dependencies"
   #     - "docker"
