@@ -1,0 +1,1 @@
+{"version":3,"file":"explain-command.d.ts","sourceRoot":"","sources":["../../src/commands/explain-command.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,cAAc,EAAE,MAAM,UAAU,CAAC;AAEnD,qBAAa,cAAe,YAAW,OAAO;IAC5C,IAAI,SAAa;IACjB,WAAW,SAAwC;IACnD,KAAK,SAAyB;IAExB,OAAO,CAAC,OAAO,EAAE,cAAc,GAAG,OAAO,CAAC,IAAI,CAAC;IAiCrD,OAAO,CAAC,SAAS;YAiBH,aAAa;CAQ5B"}
