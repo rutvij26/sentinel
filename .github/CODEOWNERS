@@ -1,47 +1,47 @@
 # Global owners - these people will be requested for review on all PRs
-* @rut26
+* @rutvij26
 
 # Core functionality
-/src/ @rut26
-/action.yml @rut26
+/src/ @rutvij26
+/action.yml @rutvij26
 
 # AI providers
-/src/ai/ @rut26
+/src/ai/ @rutvij26
 
 # GitHub integration
-/src/github/ @rut26
+/src/github/ @rutvij26
 
 # Commands system
-/src/commands/ @rut26
+/src/commands/ @rutvij26
 
 # Configuration and utilities
-/src/config/ @rut26
-/src/utils/ @rut26
+/src/config/ @rutvij26
+/src/utils/ @rutvij26
 
 # Event handling
-/src/events/ @rut26
+/src/events/ @rutvij26
 
 # Types and interfaces
-/src/types/ @rut26
+/src/types/ @rutvij26
 
 # Tests
-/src/__tests__/ @rut26
+/src/__tests__/ @rutvij26
 
 # Documentation
-/README.md @rut26
-/CONTRIBUTING.md @rut26
-/CODE_OF_CONDUCT.md @rut26
+/README.md @rutvij26
+/CONTRIBUTING.md @rutvij26
+/CODE_OF_CONDUCT.md @rutvij26
 
 # Configuration files
-/.github/ @rut26
-/tsconfig.json @rut26
-/jest.config.js @rut26
-/.eslintrc.js @rut26
-/.prettierrc @rut26
+/.github/ @rutvij26
+/tsconfig.json @rutvij26
+/jest.config.js @rutvij26
+/.eslintrc.js @rutvij26
+/.prettierrc @rutvij26
 
 # Dependencies and build
-/package.json @rut26
-/package-lock.json @rut26
+/package.json @rutvij26
+/package-lock.json @rutvij26
 
 # Example configurations
-/.sentinel.yml.example @rut26
+/.sentinel.yml.example @rutvij26

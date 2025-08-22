@@ -97,12 +97,12 @@ We follow a coordinated disclosure policy:
 ### Primary Security Contact
 
 - **Email**: [INSERT_SECURITY_EMAIL]
-- **GitHub**: @rut26
+- **GitHub**: @rutvij26
 - **Response time**: Within 48 hours
 
 ### Security Team
 
-- **Lead**: @rut26
+- **Lead**: @rutvij26
 - **Backup**: [INSERT_BACKUP_CONTACT]
 
 ## Security Acknowledgments

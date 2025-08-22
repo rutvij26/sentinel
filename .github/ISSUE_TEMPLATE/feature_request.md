@@ -3,7 +3,7 @@ name: Feature request
 about: Suggest an idea for this project
 title: '[FEATURE] '
 labels: ['enhancement', 'needs-triage']
-assignees: ['@rut26']
+assignees: ['@rutvij26']
 ---
 
 ## Problem Statement

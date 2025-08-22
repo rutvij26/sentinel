@@ -66,7 +66,7 @@ jobs:
                 
                 This issue was automatically created by the dependency update workflow.`,
                 labels: ['dependencies', 'automated', 'maintenance'],
-                assignees: ['@rut26']
+                assignees: ['@rutvij26']
               });
             }
 
@@ -127,6 +127,6 @@ jobs:
                 
                 This issue was automatically created by the security scan workflow.`,
                 labels: ['security', 'automated', 'urgent'],
-                assignees: ['@rut26']
+                assignees: ['@rutvij26']
               });
             }
