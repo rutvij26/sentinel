@@ -1,0 +1,44 @@
+# Sentinel AI Configuration
+# Copy this file to .sentinel.yml and customize as needed
+
+# AI Provider Configuration
+provider: openai                    # Options: 'openai' or 'gemini'
+model: gpt-4                        # Model name (e.g., 'gpt-4', 'gpt-3.5-turbo', 'gemini-pro')
+maxTokens: 4000                     # Maximum tokens per request (1000-8000)
+
+# Review Configuration
+reviewDepth: normal                 # Options: 'light', 'normal', 'deep'
+autoReview: true                   # Automatically review new/updated PRs
+commentOnFiles: true               # Post inline comments on specific code lines
+suggestTests: true                 # Generate test case suggestions
+suggestLinting: true               # Identify code quality issues
+
+# Rate Limiting
+rateLimit:
+  requestsPerMinute: 60            # API requests per minute
+  maxRetries: 3                    # Maximum retry attempts for failed requests
+
+# Command System
+commands:
+  enabled: true                    # Enable PR comment commands
+  allowedUsers: []                 # Restrict commands to specific users (empty = all users)
+
+# Example configurations for different providers:
+
+# OpenAI Configuration
+# provider: openai
+# model: gpt-4
+# maxTokens: 4000
+
+# Gemini Configuration
+# provider: gemini
+# model: gemini-pro
+# maxTokens: 4000
+
+# Light Review (for quick feedback)
+# reviewDepth: light
+# maxTokens: 2000
+
+# Deep Review (for thorough analysis)
+# reviewDepth: deep
+# maxTokens: 6000

@@ -1,0 +1,31 @@
+name: 'Sentinel - AI-Powered PR Review'
+description: 'Automatically review pull requests using OpenAI or Gemini AI models'
+author: 'Sentinel Team'
+branding:
+  icon: 'eye'
+  color: 'blue'
+
+inputs:
+  openai-api-key:
+    description: 'OpenAI API key (required if using OpenAI)'
+    required: false
+  gemini-api-key:
+    description: 'Gemini API key (required if using Gemini)'
+    required: false
+  config-file:
+    description: 'Path to Sentinel configuration file'
+    default: '.sentinel.yml'
+    required: false
+  github-token:
+    description: 'GitHub token for API access'
+    required: true
+    default: '${{ github.token }}'
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
+
+events:
+  - pull_request
+  - pull_request_review
+  - issue_comment
