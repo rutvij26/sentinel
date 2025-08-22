@@ -1,0 +1,33 @@
+# Sentinel Configuration for Local Development
+# This file configures the Sentinel AI-powered PR review system
+
+# AI Provider Configuration
+provider: gemini # Options: 'openai' or 'gemini'
+model: gemini-pro # Model name (e.g., 'gpt-4', 'gpt-3.5-turbo', 'gemini-pro')
+maxTokens: 4000 # Maximum tokens for AI responses
+
+# Review Configuration
+reviewDepth: normal # Options: 'light', 'normal', 'deep'
+autoReview: true # Automatically review new/updated PRs
+commentOnFiles: true # Post inline comments on specific code lines
+suggestTests: true # Generate test case suggestions
+suggestLinting: true # Identify code quality issues
+
+# Rate Limiting
+rateLimit:
+  requestsPerMinute: 10 # API requests per minute
+  maxRetries: 3 # Maximum retry attempts
+
+# Commands Configuration
+commands:
+  enabled: true # Enable PR comment commands
+  allowedUsers: # Users who can use commands (empty = all users)
+    - 'rutvij26'
+
+# Development Overrides
+# These settings are useful for local development
+development:
+  mockAI: false # Use mock AI responses for testing
+  verboseLogging: true # Enable detailed logging
+  cacheEnabled: true # Enable response caching
+  cacheTTL: 3600 # Cache TTL in seconds (1 hour)
