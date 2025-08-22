@@ -1,0 +1,93 @@
+# Dependabot configuration for Sentinel
+# https://docs.github.com/en/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+updates:
+  # Enable version updates for npm
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "UTC"
+    # Limit to security updates for production dependencies
+    open-pull-requests-limit: 10
+    reviewers:
+      - "rut26"
+    assignees:
+      - "rut26"
+    labels:
+      - "dependencies"
+      - "automated"
+    # Group minor and patch updates together
+    groups:
+      dev-dependencies:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+    # Allow up to 10 open PRs for dependency updates
+    open-pull-requests-limit: 10
+    # Automatically merge minor and patch updates for dev dependencies
+    commit-message:
+      prefix: "chore"
+      prefix-development: "chore"
+      include: "scope"
+    # Rebase on conflicts
+    rebase-strategy: "auto"
+    # Target the main branch
+    target-branch: "main"
+    # Allow up to 5 open PRs for security updates
+    open-pull-requests-limit: 5
+    # Automatically merge security updates
+    allow:
+      - dependency-type: "direct"
+      - dependency-type: "indirect"
+    # Ignore major version updates for now
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
+
+  # Enable version updates for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "rut26"
+    assignees:
+      - "rut26"
+    labels:
+      - "dependencies"
+      - "github-actions"
+      - "automated"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+    rebase-strategy: "auto"
+    target-branch: "main"
+
+  # Enable version updates for Docker (if we add Docker later)
+  # - package-ecosystem: "docker"
+  #   directory: "/"
+  #   schedule:
+  #     interval: "weekly"
+  #     day: "monday"
+  #     time: "09:00"
+  #     timezone: "UTC"
+  #   open-pull-requests-limit: 5
+  #   reviewers:
+  #     - "rut26"
+  #   assignees:
+  #     - "rut26"
+  #   labels:
+  #     - "dependencies"
+  #     - "docker"
+  #     - "automated"

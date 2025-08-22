@@ -37,9 +37,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Sentinel AI Review
-        uses: your-username/sentinel@v1
+        uses: rutvij26/sentinel@v1
         with:
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
           # OR use Gemini:
@@ -67,7 +67,7 @@ rateLimit:
 
 commands:
   enabled: true
-  allowedUsers: []  # Empty = all users
+  allowedUsers: [] # Empty = all users
 ```
 
 ### 3. Set Up API Keys
@@ -81,14 +81,14 @@ Add your API keys as GitHub repository secrets:
 
 Sentinel responds to commands posted as PR comments:
 
-| Command | Description | Example |
-|---------|-------------|---------|
-| `/re-review` | Re-run the AI review | `/re-review` |
-| `/summarize` | Generate PR summary | `/summarize` |
-| `/explain <file>` | Explain file changes | `/explain src/main.ts` |
-| `/lint` | Run code quality analysis | `/lint` |
-| `/tests` | Suggest test cases | `/tests` |
-| `/help` | Show command help | `/help` or `/help explain` |
+| Command           | Description               | Example                    |
+| ----------------- | ------------------------- | -------------------------- |
+| `/re-review`      | Re-run the AI review      | `/re-review`               |
+| `/summarize`      | Generate PR summary       | `/summarize`               |
+| `/explain <file>` | Explain file changes      | `/explain src/main.ts`     |
+| `/lint`           | Run code quality analysis | `/lint`                    |
+| `/tests`          | Suggest test cases        | `/tests`                   |
+| `/help`           | Show command help         | `/help` or `/help explain` |
 
 ## ⚙️ Configuration Options
 
@@ -109,7 +109,7 @@ maxTokens: 4000
 ### Review Depth
 
 ```yaml
-reviewDepth: normal  # Options: light, normal, deep
+reviewDepth: normal # Options: light, normal, deep
 
 # Light: Quick feedback, major issues only
 # Normal: Balanced coverage of functionality, security, best practices
@@ -120,18 +120,18 @@ reviewDepth: normal  # Options: light, normal, deep
 
 ```yaml
 review:
-  autoReview: true        # Auto-review new/updated PRs
-  commentOnFiles: true    # Post inline comments
-  suggestTests: true      # Generate test suggestions
-  suggestLinting: true    # Identify code quality issues
+  autoReview: true # Auto-review new/updated PRs
+  commentOnFiles: true # Post inline comments
+  suggestTests: true # Generate test suggestions
+  suggestLinting: true # Identify code quality issues
 ```
 
 ### Rate Limiting
 
 ```yaml
 rateLimit:
-  requestsPerMinute: 60   # API requests per minute
-  maxRetries: 3           # Retry attempts for failures
+  requestsPerMinute: 60 # API requests per minute
+  maxRetries: 3 # Retry attempts for failures
 ```
 
 ### Command Access Control
@@ -139,7 +139,7 @@ rateLimit:
 ```yaml
 commands:
   enabled: true
-  allowedUsers:           # Restrict to specific users
+  allowedUsers: # Restrict to specific users
     - username1
     - username2
   # Leave empty to allow all users
@@ -177,7 +177,7 @@ commands:
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/sentinel.git
+git clone https://github.com/rutvij26/sentinel.git
 cd sentinel
 
 # Install dependencies
@@ -256,7 +256,7 @@ npm run build
 2. Create a release with a tag (e.g., `v1.0.0`)
 3. Reference the action in other repositories:
    ```yaml
-   uses: your-username/sentinel@v1.0.0
+   uses: rutvij26/sentinel@v1.0.0
    ```
 
 ### Option 2: Self-Hosted
@@ -300,12 +300,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-- **Issues**: [GitHub Issues](https://github.com/your-username/sentinel/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/your-username/sentinel/discussions)
-- **Documentation**: [Wiki](https://github.com/your-username/sentinel/wiki)
+- **Issues**: [GitHub Issues](https://github.com/rutvij26/sentinel/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/rutvij26/sentinel/discussions)
+- **Documentation**: [Wiki](https://github.com/rutvij26/sentinel/wiki)
 
 ---
 
 **Made with ❤️ by the Sentinel Team**
 
-*Transform your pull request workflow with AI-powered insights!*
+_Transform your pull request workflow with AI-powered insights!_

@@ -1,0 +1,47 @@
+# Global owners - these people will be requested for review on all PRs
+* @rut26
+
+# Core functionality
+/src/ @rut26
+/action.yml @rut26
+
+# AI providers
+/src/ai/ @rut26
+
+# GitHub integration
+/src/github/ @rut26
+
+# Commands system
+/src/commands/ @rut26
+
+# Configuration and utilities
+/src/config/ @rut26
+/src/utils/ @rut26
+
+# Event handling
+/src/events/ @rut26
+
+# Types and interfaces
+/src/types/ @rut26
+
+# Tests
+/src/__tests__/ @rut26
+
+# Documentation
+/README.md @rut26
+/CONTRIBUTING.md @rut26
+/CODE_OF_CONDUCT.md @rut26
+
+# Configuration files
+/.github/ @rut26
+/tsconfig.json @rut26
+/jest.config.js @rut26
+/.eslintrc.js @rut26
+/.prettierrc @rut26
+
+# Dependencies and build
+/package.json @rut26
+/package-lock.json @rut26
+
+# Example configurations
+/.sentinel.yml.example @rut26

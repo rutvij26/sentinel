@@ -1,0 +1,227 @@
+name: Pre-Merge Checks
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+      - develop
+  push:
+    branches:
+      - main
+      - develop
+
+env:
+  NODE_VERSION: '18'
+  NPM_VERSION: '9'
+
+jobs:
+  # Code Quality Checks
+  code-quality:
+    name: Code Quality
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Run Prettier check
+        run: npm run format:check
+
+      - name: Check TypeScript compilation
+        run: npm run build
+
+  # Testing
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Upload test coverage
+        uses: codecov/codecov-action@v3
+        if: matrix.os == 'ubuntu-latest' && matrix.node-version == 18
+        with:
+          file: ./coverage/lcov.info
+          flags: unittests
+          name: codecov-umbrella
+
+  # Security scanning
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run npm audit
+        run: npm audit --audit-level=moderate
+
+      - name: Run Snyk security scan
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+
+  # Dependency updates check
+  dependencies:
+    name: Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Check for outdated dependencies
+        run: npm outdated
+
+      - name: Check for vulnerable dependencies
+        run: npm audit
+
+  # Build verification
+  build:
+    name: Build Verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Verify build output
+        run: |
+          if [ ! -d "dist" ]; then
+            echo "Build output directory 'dist' not found"
+            exit 1
+          fi
+
+          if [ ! -f "dist/index.js" ]; then
+            echo "Main entry point 'dist/index.js' not found"
+            exit 1
+          fi
+
+          echo "Build verification passed"
+
+  # Documentation check
+  docs:
+    name: Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check README links
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          use-quiet-mode: 'yes'
+          use-verbose-mode: 'yes'
+
+      - name: Check for broken links
+        run: |
+          # Check if all required documentation files exist
+          required_files=("README.md" "CONTRIBUTING.md" "CODE_OF_CONDUCT.md" ".sentinel.yml.example")
+          for file in "${required_files[@]}"; do
+            if [ ! -f "$file" ]; then
+              echo "Required documentation file $file is missing"
+              exit 1
+            fi
+          done
+          echo "All required documentation files present"
+
+  # Performance check
+  performance:
+    name: Performance
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Check bundle size
+        run: |
+          # Check if dist folder size is reasonable (less than 10MB)
+          dist_size=$(du -sm dist | cut -f1)
+          if [ "$dist_size" -gt 10 ]; then
+            echo "Build output is too large: ${dist_size}MB (max: 10MB)"
+            exit 1
+          fi
+          echo "Build size check passed: ${dist_size}MB"
+
+  # Final status check
+  status:
+    name: Status Check
+    runs-on: ubuntu-latest
+    needs: [code-quality, test, security, dependencies, build, docs, performance]
+    if: always()
+    steps:
+      - name: Check job statuses
+        run: |
+          # This job will only run if all previous jobs succeeded
+          echo "All pre-merge checks completed successfully!"
+
+          # If any job failed, this job will also fail
+          # GitHub will prevent merging until all checks pass

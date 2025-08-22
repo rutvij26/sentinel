@@ -1,0 +1,36 @@
+name: Sentinel AI Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  issue_comment:
+    types: [created]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Sentinel AI Review
+        uses: rutvij26/sentinel@v1
+        with:
+          # Choose one AI provider:
+
+          # OpenAI Configuration
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+
+          # OR use Gemini:
+          # gemini-api-key: ${{ secrets.GEMINI_API_KEY }}
+
+          # GitHub token (automatically provided)
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+          # Optional: custom config file path
+          config-file: .sentinel.yml

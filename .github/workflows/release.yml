@@ -1,0 +1,94 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Run tests
+        run: npm test
+
+      - name: Run linting
+        run: npm run lint
+
+      - name: Check formatting
+        run: npm run format:check
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Assets
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist/index.js
+          asset_name: sentinel-action.js
+          asset_content_type: application/javascript
+
+      - name: Upload Source Maps
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist/index.js.map
+          asset_name: sentinel-action.js.map
+          asset_content_type: application/json
+
+      - name: Generate Release Notes
+        id: release_notes
+        run: |
+          # Extract version from tag
+          VERSION=${GITHUB_REF#refs/tags/}
+
+          # Generate changelog section
+          if [ -f "CHANGELOG.md" ]; then
+            # Find the section for this version
+            awk "/## \\[$VERSION\\]/,/## \\[.*\\]/{if (!/## \\[.*\\]/) print}" CHANGELOG.md > release_notes.md
+          else
+            echo "## Release $VERSION" > release_notes.md
+            echo "No changelog found. Please update CHANGELOG.md for future releases." >> release_notes.md
+          fi
+
+          # Update release with notes
+          gh release edit $VERSION --notes-file release_notes.md
+
+      - name: Notify Release
+        run: |
+          echo "🚀 Release ${{ github.ref }} has been created successfully!"
+          echo "📦 Assets uploaded:"
+          echo "  - sentinel-action.js"
+          echo "  - sentinel-action.js.map"
+          echo "📝 Release notes updated from CHANGELOG.md"
