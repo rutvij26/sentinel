@@ -306,6 +306,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Made with ❤️ by the Sentinel Team**
+**Made with ❤️ by the rutvij26**
 
 _Transform your pull request workflow with AI-powered insights!_
